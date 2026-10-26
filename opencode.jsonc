@@ -1,0 +1,353 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "orchestrator",
+  "instructions": ["~/.config/opencode/AGENTS.md", "~/.config/opencode/LEARNINGS.md"],
+  "skills": {
+    "paths": ["~/.config/opencode/skills"]
+  },
+  "references": {
+    "claude-code-official": {
+      "path": "~/.config/opencode/official/claude-code",
+      "description": "Official Anthropic Claude Code system prompts, subagent prompts, agents, commands, and docs"
+    }
+  },
+  "plugin": [
+    "@tarquinen/opencode-dcp@3.2.0",
+    "opencode-pty@0.4.0",
+    "superpowers@git+https://github.com/obra/superpowers.git#v7.0.1"
+  ],
+  "permission": {
+    "read": "allow",
+    "edit": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "list": "allow",
+    "task": "allow",
+    "todowrite": "allow",
+    "question": "allow",
+    "webfetch": "allow",
+    "websearch": "allow",
+    "lsp": "allow",
+    "skill": "allow",
+    "external_directory": "allow",
+    "bash": {
+      "*": "allow",
+      "*rm -rf*": "ask",
+      "*rm -fr*": "ask",
+      "*git reset --hard*": "ask",
+      "*git clean -*": "ask",
+      "*git push*--force*": "ask",
+      "*git push -f*": "ask",
+      "*git checkout -- *": "ask",
+      "*sudo *": "ask",
+      "*mkfs*": "ask",
+      "*dd if=*": "ask",
+      "*| sh*": "ask",
+      "*|sh*": "ask",
+      "*> /dev/sd*": "ask",
+      "*chmod 777*": "ask",
+      "*npm publish*": "ask",
+      "*gh repo delete*": "ask",
+      "*gh release delete*": "ask"
+    }
+  },
+  "compaction": {
+    "auto": true
+  },
+  "tool_output": {
+    "max_lines": 1200,
+    "max_bytes": 32768
+  },
+  "share": "manual",
+  "autoupdate": "notify",
+  "experimental": {
+    "mcp_timeout": 60000,
+    "subagent_depth": 2
+  },
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true
+    },
+    "deepwiki": {
+      "type": "remote",
+      "url": "https://mcp.deepwiki.com/mcp",
+      "enabled": true
+    },
+    "serena": {
+      "type": "local",
+      "command": [
+        "/home/aethel/.local/bin/uvx",
+        "--from",
+        "serena-agent",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant"
+      ],
+      "environment": {
+        "SERENA_OPEN_WEB_DASHBOARD": "false"
+      },
+      "enabled": true
+    },
+    "repomix": {
+      "type": "local",
+      "command": ["/home/aethel/.bun/bin/bunx", "-y", "repomix@1.18.1", "--mcp"],
+      "enabled": true
+    },
+    "playwright": {
+      "type": "local",
+      "command": ["/home/aethel/.bun/bin/bunx", "-y", "@playwright/mcp@latest", "--headless"],
+      "enabled": true
+    },
+    "chrome-devtools": {
+      "type": "local",
+      "command": [
+        "/home/aethel/.bun/bin/bunx",
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--headless",
+        "--isolated",
+        "--executablePath",
+        "/home/aethel/.local/bin/chrome-for-testing"
+      ],
+      "enabled": true
+    },
+    "git": {
+      "type": "local",
+      "command": ["/home/aethel/.local/bin/uvx", "mcp-server-git", "--repository", "."],
+      "enabled": true
+    },
+    "fetch": {
+      "type": "local",
+      "command": ["/home/aethel/.local/bin/uvx", "mcp-server-fetch"],
+      "enabled": true
+    },
+    "duckduckgo": {
+      "type": "local",
+      "command": ["/home/aethel/.local/bin/uvx", "duckduckgo-mcp-server"],
+      "enabled": true
+    },
+    "markitdown": {
+      "type": "local",
+      "command": ["/home/aethel/.local/bin/uvx", "markitdown-mcp"],
+      "enabled": true
+    },
+    "memory": {
+      "type": "local",
+      "command": ["/home/aethel/.bun/bin/bunx", "-y", "@modelcontextprotocol/server-memory"],
+      "environment": {
+        "MEMORY_FILE_PATH": "/home/aethel/.local/share/opencode/memory.json"
+      },
+      "enabled": true
+    },
+    "sequential-thinking": {
+      "type": "local",
+      "command": ["/home/aethel/.bun/bin/bunx", "-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "enabled": true
+    },
+    "time": {
+      "type": "local",
+      "command": ["/home/aethel/.local/bin/uvx", "mcp-server-time"],
+      "enabled": true
+    },
+
+    "github": {
+      "type": "remote",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer {env:GITHUB_TOKEN}"
+      },
+      "enabled": false
+    },
+    "vercel": {
+      "type": "remote",
+      "url": "https://mcp.vercel.com",
+      "enabled": false
+    },
+    "supabase": {
+      "type": "remote",
+      "url": "https://mcp.supabase.com/mcp",
+      "enabled": false
+    },
+    "neon": {
+      "type": "remote",
+      "url": "https://mcp.neon.tech/mcp",
+      "enabled": false
+    },
+    "sentry": {
+      "type": "remote",
+      "url": "https://mcp.sentry.dev/mcp",
+      "enabled": false
+    },
+    "linear": {
+      "type": "remote",
+      "url": "https://mcp.linear.app/mcp",
+      "enabled": false
+    },
+    "notion": {
+      "type": "remote",
+      "url": "https://mcp.notion.com/mcp",
+      "enabled": false
+    },
+    "stripe": {
+      "type": "remote",
+      "url": "https://mcp.stripe.com",
+      "enabled": false
+    },
+    "slack": {
+      "type": "remote",
+      "url": "https://mcp.slack.com/mcp",
+      "enabled": false
+    },
+    "atlassian": {
+      "type": "remote",
+      "url": "https://mcp.atlassian.com/v1/sse",
+      "enabled": false
+    },
+    "postman": {
+      "type": "remote",
+      "url": "https://mcp.postman.com/minimal",
+      "enabled": false
+    },
+    "figma": {
+      "type": "remote",
+      "url": "https://mcp.figma.com/mcp",
+      "enabled": false
+    },
+    "canva": {
+      "type": "remote",
+      "url": "https://mcp.canva.com/mcp",
+      "enabled": false
+    },
+    "asana": {
+      "type": "remote",
+      "url": "https://mcp.asana.com/sse",
+      "enabled": false
+    },
+    "datadog": {
+      "type": "remote",
+      "url": "https://mcp.datadoghq.com/api/unstable/mcp-server/mcp",
+      "enabled": false
+    },
+    "grafana": {
+      "type": "remote",
+      "url": "https://mcp.grafana.com/mcp",
+      "enabled": false
+    },
+    "render": {
+      "type": "remote",
+      "url": "https://mcp.render.com/mcp",
+      "enabled": false
+    },
+    "heroku": {
+      "type": "remote",
+      "url": "https://mcp.heroku.com/mcp",
+      "enabled": false
+    },
+    "cloudflare-docs": {
+      "type": "remote",
+      "url": "https://docs.mcp.cloudflare.com/mcp",
+      "enabled": false
+    },
+    "paypal": {
+      "type": "remote",
+      "url": "https://mcp.paypal.com/mcp",
+      "enabled": false
+    },
+    "tavily": {
+      "type": "remote",
+      "url": "https://mcp.tavily.com/mcp/?tavilyApiKey={env:TAVILY_API_KEY}",
+      "enabled": false
+    },
+    "exa": {
+      "type": "remote",
+      "url": "https://mcp.exa.ai/mcp",
+      "enabled": false
+    },
+    "firecrawl": {
+      "type": "remote",
+      "url": "https://mcp.firecrawl.dev/v2/mcp",
+      "enabled": false
+    },
+
+    "filesystem": {
+      "type": "local",
+      "command": ["/home/aethel/.bun/bin/bunx", "-y", "@modelcontextprotocol/server-filesystem", "/home/aethel"],
+      "enabled": false
+    },
+    "postgres": {
+      "type": "local",
+      "command": ["/home/aethel/.bun/bin/bunx", "-y", "@bytebase/dbhub", "--dsn", "{env:DATABASE_URL}"],
+      "enabled": false
+    },
+    "mongodb": {
+      "type": "local",
+      "command": ["/home/aethel/.bun/bin/bunx", "-y", "mongodb-mcp-server", "--connectionString", "{env:MONGODB_URI}"],
+      "enabled": false
+    },
+    "qdrant": {
+      "type": "local",
+      "command": ["/home/aethel/.local/bin/uvx", "mcp-server-qdrant", "--qdrant-url", "{env:QDRANT_URL}"],
+      "enabled": false
+    },
+    "chroma": {
+      "type": "local",
+      "command": ["/home/aethel/.local/bin/uvx", "chroma-mcp"],
+      "enabled": false
+    },
+    "clickhouse": {
+      "type": "local",
+      "command": ["/home/aethel/.local/bin/uvx", "mcp-clickhouse"],
+      "enabled": false
+    },
+    "bigquery": {
+      "type": "local",
+      "command": ["/home/aethel/.local/bin/uvx", "mcp-server-bigquery", "--project", "{env:GOOGLE_CLOUD_PROJECT}"],
+      "enabled": false
+    },
+    "snowflake": {
+      "type": "local",
+      "command": ["/home/aethel/.local/bin/uvx", "mcp-server-snowflake"],
+      "enabled": false
+    },
+    "neo4j": {
+      "type": "local",
+      "command": ["/home/aethel/.local/bin/uvx", "mcp-neo4j-cypher"],
+      "enabled": false
+    },
+    "aws-docs": {
+      "type": "local",
+      "command": ["/home/aethel/.local/bin/uvx", "awslabs.aws-documentation-mcp-server"],
+      "environment": {
+        "AWS_DOCUMENTATION_PARTITION": "aws"
+      },
+      "enabled": false
+    },
+    "cloud-run": {
+      "type": "local",
+      "command": ["/home/aethel/.bun/bin/bunx", "-y", "@google-cloud/cloud-run-mcp"],
+      "enabled": false
+    },
+    "shopify": {
+      "type": "local",
+      "command": ["/home/aethel/.bun/bin/bunx", "-y", "@shopify/dev-mcp"],
+      "environment": {
+        "SHOPIFY_ACCESS_TOKEN": "{env:SHOPIFY_ACCESS_TOKEN}",
+        "MYSHOPIFY_DOMAIN": "{env:MYSHOPIFY_DOMAIN}"
+      },
+      "enabled": false
+    },
+    "azure": {
+      "type": "local",
+      "command": ["/home/aethel/.bun/bin/bunx", "-y", "@azure/mcp@latest", "server", "start"],
+      "enabled": false
+    },
+    "docker": {
+      "type": "local",
+      "command": ["/home/aethel/.local/bin/uvx", "mcp-server-docker"],
+      "enabled": false
+    }
+  }
+}
