@@ -111,7 +111,6 @@ The harness does not pin a model — pick per provider with `/models`. Guidance:
 
 ## Honest limits
 
-- An agent cannot run a company. The business skills produce the artifacts a founder needs — evidence logs, pricing models with sensitivity, launch plans, support SLAs, legal checklists — and explicitly hand legal, tax, and securities questions to a professional.
 - Thirteen MCP servers cost tool-schema budget. Disable what you do not use; `docs/MCP.md` lists what each one buys you.
 - The `official/` directory is derived from Anthropic's Claude Code distribution for reference and prompt porting. Provenance, versions, and extraction method are documented in `official/claude-code/SOURCES.md`. Third-party skill packs are not vendored here; they are loaded from `~/.claude/skills` and `~/.agents/skills`.
 - Permission glob rules gate catastrophic patterns but are not a security sandbox.
